@@ -31,7 +31,7 @@ body {
     background-attachment: fixed;*/
     background: url('photo/background2.jpg') no-repeat center center fixed;
     background-size: cover;
-    background-color: rgba(255,255,255,0.6); /* 白色半透明层，避免图片过亮影响文字 */
+    background-color: rgba(255,255,255,0.3); /* 白色半透明层，避免图片过亮影响文字 */
     background-blend-mode: overlay;
 }
 
