@@ -52,6 +52,12 @@ body {
     z-index: 1000;
 }
 
+/* 导航栏占位元素，高度与导航栏一致 */
+.navbar-placeholder {
+    height: 70px;   /* 默认与导航栏高度相同 */
+    background: transparent;
+}
+
 .navbar .container {
     display: flex;
     justify-content: space-between;
@@ -126,7 +132,7 @@ body {
 
 /* 英雄区域 */
 .hero {
-    padding: 150px 0  90px ;
+    padding: 30px 0  90px ;
     /* background: linear-gradient(135deg, #f0f5ff 0%, #e6f0fa 100%); */
     background: url('photo/background1.png') no-repeat center center fixed;
     background-size: cover;
