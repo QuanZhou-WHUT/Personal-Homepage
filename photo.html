@@ -70,6 +70,22 @@
             height: 60px; /* 默认高度 */
         }
         @media (max-width: 768px) {
+        .photo-grid {
+            grid-template-columns: 1fr;   /* 每行一列 */
+            gap: 1rem;
+        }
+    
+        .photo-item img {
+            height: auto;                 /* 高度自适应，保持比例 */
+            max-height: 400px;           /* 限制最大高度，避免过长 */
+            object-fit: contain;         /* 完整显示图片，不裁剪 */
+        }
+    
+        .section-title {
+            font-size: 1.8rem;
+        }
+    
+  
         .navbar-placeholder {
             height: 80px; /* 移动端可能更高 */
         }
