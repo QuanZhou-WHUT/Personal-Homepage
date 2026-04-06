@@ -523,6 +523,11 @@ body {
         display: block;
         padding: 1rem;
     }
+
+    /* 移动端适配：导航栏高度可能变化（例如汉堡菜单换行） */
+    .navbar-placeholder {
+        height: 60px;   /* 根据实际移动端导航栏高度调整 */
+    }
     
     .mobile-menu-btn {
         display: block;
