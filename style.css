@@ -568,6 +568,31 @@ body {
         font-size: 1.1rem;
     }
 }
+/* 让 hero 区域的内边距更小 */
+   .hero {
+        padding: 120px 0 60px;
+    }
+
+/* 调整 affiliation 和 address 字体大小 */
+   .affiliation, .address {
+       font-size: 1rem;
+    }
+
+/* 项目卡片高度自适应 */
+   .project-item {
+       height: auto;
+       padding: 1.5rem;
+    }
+
+/* 学生列表字体稍小 */
+   .students-inform li {
+       font-size: 0.95rem;
+    }
+
+/* 访客地图容器宽度限制 */
+   #visitor-map .container {
+       overflow-x: auto;   /* 防止地图溢出 */
+    }
     /* 针对更小屏幕（手机竖屏）的进一步调整 */
 @media (max-width: 480px) {
     .publication-item {
