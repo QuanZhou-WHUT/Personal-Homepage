@@ -240,19 +240,28 @@ body {
     gap: 0.5rem;
 }
 
+/* 日期容器：固定宽度，flex 布局 */
 .timeline-date {
-    flex: 0 0 120px;
-    font-weight: 600;
-    color: var(--secondary-color);
-    text-align: center;
+    flex: 0 0 130px;           /* 固定宽度，所有日期列等宽 */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* 子元素从左开始排列 */
 }
 
-.timeline-date::before {
-    content: "🔥";
-    margin-right: 6px;
-    display: inline-block;
-    width: 24px;   /* 固定宽度，确保所有日期前火焰占位一致 */
+/* 火焰符号：固定宽度，保证所有火焰左边缘对齐 */
+.flame {
+    width: 28px;               /* 固定宽度，可根据喜好调整 */
     text-align: center;
+    flex-shrink: 0;            /* 防止压缩 */
+    font-size: 1rem;
+}
+
+/* 日期文字：占据剩余空间，并在内部居中 */
+.date-text {
+    flex: 1;
+    text-align: center;        /* 日期文字在剩余空间内居中 */
+    font-weight: 600;
+    color: var(--secondary-color);
 }
 
 .timeline-content {
