@@ -247,6 +247,14 @@ body {
     text-align: center;
 }
 
+.timeline-date::before {
+    content: "🔥";
+    margin-right: 6px;
+    display: inline-block;
+    width: 24px;   /* 固定宽度，确保所有日期前火焰占位一致 */
+    text-align: center;
+}
+
 .timeline-content {
     flex: 1;
     color: #FF0000;
