@@ -142,14 +142,19 @@ body {
 }
 
 /* 英雄区域 */
+/* 修复：移动端背景图完整显示 + 桌面端正常 */
 .hero {
-    padding: 130px 0  90px ;
-    /* background: linear-gradient(135deg, #f0f5ff 0%, #e6f0fa 100%); */
-    background: url('photo/background1.png') no-repeat center center fixed;
-    background-size: cover;
-    background-color: rgba(255,255,255,0.6); /* 白色半透明层，避免图片过亮影响文字 */
+    padding: 80px 0 60px; /* 适配导航栏占位，无空白 */
+    /* 核心：背景图等比完整显示，不裁剪 */
+    background: url('photo/background1.png') no-repeat center center;
+    background-size: contain; /* ✅ 等比缩放，完整显示整张图（不裁剪） */
+    /* background-size: 100% 100%; */ /* 可选：拉伸铺满（会变形，不推荐） */
+    background-attachment: scroll; /* ✅ 移动端禁用fixed，避免背景错位裁剪 */
+    background-color: rgba(255,255,255,0.6);
     background-blend-mode: overlay;
     text-align: center;
+    position: relative;
+    overflow: hidden; /* 禁止背景溢出 */
 }
 
 .hero::before {
@@ -627,3 +632,10 @@ body {
     }
 }
 
+/* 桌面端保持原有视觉效果（可选，保留更美观） */
+@media (min-width: 769px) {
+    .hero {
+        background-attachment: fixed;
+        background-size: cover;
+    }
+}
