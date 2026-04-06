@@ -54,7 +54,7 @@ body {
 
 /* 导航栏占位元素，高度与导航栏一致 */
 .navbar-placeholder {
-    height: 70px;   /* 默认与导航栏高度相同 */
+    height: 60px;   /* 默认与导航栏高度相同 */
     background: transparent;
 }
 
@@ -526,7 +526,7 @@ body {
 
     /* 移动端适配：导航栏高度可能变化（例如汉堡菜单换行） */
     .navbar-placeholder {
-        height: 60px;   /* 根据实际移动端导航栏高度调整 */
+        height: 80px;   /* 根据实际移动端导航栏高度调整 */
     }
     
     .mobile-menu-btn {
