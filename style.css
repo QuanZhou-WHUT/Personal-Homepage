@@ -165,9 +165,16 @@ body {
     font-weight: 400;
 }
 
-.affiliation, .address {
+.affiliation {
     margin: 1rem 0;
-    color: var(--text-light);
+    color: #5d4037;        /* 深暖棕色 */
+    font-size: 1.2rem;
+    line-height: 1.8;
+}
+
+.address {
+    margin: 1rem 0;
+    color: #795548;        /* 浅暖棕灰色 */
     line-height: 1.8;
 }
 
