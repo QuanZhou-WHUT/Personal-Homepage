@@ -167,15 +167,17 @@ body {
 
 .affiliation {
     margin: 1rem 0;
-    color: #2c3e2f;        /* 深墨绿色（独特且稳重） */
+    color: #c97e3a;        /* 暖琥珀色 */
     font-size: 1.2rem;
     line-height: 1.8;
+    font-weight: 500;      /* 半加粗，增强可读性 */
 }
 
 .address {
     margin: 1rem 0;
-    color: #5f6c5b;        /* 暖橄榄灰，层次分明 */
+    color: #a86f3a;        /* 稍深琥珀 */
     line-height: 1.8;
+    font-weight: 500;      /* 半加粗，增强可读性 */
 }
 
 .call-for-students {
