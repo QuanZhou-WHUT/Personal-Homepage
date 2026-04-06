@@ -253,7 +253,6 @@ body {
     width: 28px;               /* 固定宽度，可根据喜好调整 */
     text-align: center;
     flex-shrink: 0;            /* 防止压缩 */
-    font-size: 1rem;
 }
 
 /* 日期文字：占据剩余空间，并在内部居中 */
