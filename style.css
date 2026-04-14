@@ -229,12 +229,47 @@ body {
      background-color: /*#f9f9f9;*/rgba(255,255,255,0.8)
 }
 
+/* 区块标题样式 - 实现emoji+文字整体居中，emoji间距恒定 */
 .section-title {
     font-size: 2.2rem;
     color: var(--primary-color);
     margin-bottom: 3rem;
-    text-align: center;
+    text-align: center; /* 父容器水平居中 */
     position: relative;
+}
+
+/* 标题内容容器：Flex布局让emoji和文字水平排列，整体居中 */
+.section-title .title-content {
+    display: inline-flex; /* 行内Flex，保证整体在父容器居中 */
+    align-items: center;  /* 垂直居中（emoji和文字对齐） */
+    justify-content: center; /* 水平居中兜底 */
+    transform: translateX(-28px); 
+}
+
+/* emoji样式：固定右侧间距，禁止压缩 */
+.section-title .emoji {
+    margin-right: 12px; /* 恒定间距（可按需调整，比如10px/15px） */
+    font-size: 2.2rem;
+    line-height: 1;
+    flex-shrink: 0; /* 防止emoji被压缩，保证间距恒定 */
+}
+
+/* 文字容器：纯文字，无偏移 */
+.section-title .text-wrap {
+    line-height: 1.2;
+}
+
+/* 下划线：绝对居中，与文字对齐 */
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 160px;
+    height: 4px;
+    background: var(--secondary-gradient);
+    border-radius: 2px;
 }
 
 .section-title::after {
@@ -248,7 +283,6 @@ body {
     background: var(--secondary-gradient);
     border-radius: 2px;
 }
-
 .subsection-title {
     font-size: 1.5rem;
     margin: 2.5rem 0 1.5rem;
@@ -512,6 +546,36 @@ body {
 .students-inform li:last-child {
     border-bottom: none;
 }
+
+/* 1. 中英文间距收紧：英文名 ↔ 中文名 仅0.5行间距 */
+.cn-name {
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    margin: 0 !important; /* 英文名和中文名0间距，紧凑贴合 */
+    line-height: 1.2;
+    font-weight: 700;
+    font-family: 'Noto Sans SC', sans-serif;
+    text-align: center !important;
+}
+.cn-title {
+    font-size: 1.4rem;
+    color: var(--secondary-color);
+    margin: 0 !important;
+    line-height: 1.2;
+    font-weight: 400;
+    font-family: 'Noto Sans SC', sans-serif;
+    text-align: center !important;
+}
+.cn-affiliation {
+    margin: 0.5rem 0 !important;
+    color: #c97e3a;
+    font-size: 2.0rem;
+    line-height: 1.5;
+    font-weight: 500;
+    font-family: 'Noto Sans SC', sans-serif;
+    text-align: center !important;
+}
+
 /* 响应式设计 */
 @media (max-width: 768px) {
     .nav-links {
@@ -619,6 +683,27 @@ body {
    #visitor-map .container {
        overflow-x: auto;   /* 防止地图溢出 */
     }
+    
+/* 移动端适配：保持紧凑+彩色 */
+    .cn-name {
+        font-size: 1.8rem;
+        margin-bottom: 0.05rem !important;
+    }
+    .cn-title {
+        font-size: 1.2rem;
+        margin-bottom: 0.3rem !important;
+    }
+    .section-title {
+        font-size: 1.8rem;
+    }
+    /* 🔥 移动端精准适配偏移值 */
+    .section-title .title-content {
+        transform: translateX(-22px);
+    }
+    .section-title .emoji {
+        font-size: 1.8rem;
+        margin-right: 10px;
+    }
     /* 针对更小屏幕（手机竖屏）的进一步调整 
 }
     
@@ -630,7 +715,7 @@ body {
     .publication-item img {
         max-height: 200px;       /* 进一步限制图片高度 */
     }
-}
+
 
 /* 桌面端保持原有视觉效果（可选，保留更美观） */
 @media (min-width: 769px) {
