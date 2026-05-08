@@ -576,6 +576,277 @@ body {
     text-align: center !important;
 }
 
+/* 视频拓展代码 */
+/* ===== 视频展示模块（16:9 容器，防止坍缩） ===== */
+.video-gallery {
+    --video-columns: 2;
+    display: grid;
+    grid-template-columns: repeat(var(--video-columns), minmax(280px, 560px));
+    gap: 2rem;
+    margin: 2rem 0;
+    justify-content: center;
+}
+
+.video-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* 16:9 宽高比容器 */
+.video-thumb-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;   /* 16:9 */
+    background: #000;
+    overflow: hidden;
+}
+
+.video-thumb {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;      /* 缩略图填满无黑边，也可用 contain */
+    display: block;
+}
+
+.play-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.video-card:hover .play-overlay {
+    opacity: 1;
+}
+
+.play-overlay i {
+    font-size: 4rem;
+    color: white;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+/* 放大按钮 */
+.expand-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 3;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    background: rgba(0,0,0,0.65);
+    color: white;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.expand-btn:hover {
+    background: var(--secondary-color);
+    transform: scale(1.08);
+}
+
+.expand-btn i {
+    font-size: 1rem;
+}
+
+.video-card:hover .expand-btn,
+.video-card.playing .expand-btn {
+    display: flex;
+}
+
+/* 视频标题 */
+.video-caption {
+    padding: 1rem;
+    text-align: center;
+    font-weight: 500;
+    color: var(--primary-color);
+    background: white;
+}
+
+/* ===== 模态框 ===== */
+.video-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.3s, opacity 0.3s;
+}
+
+.video-modal.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal-backdrop {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+}
+
+.modal-content {
+    position: relative;
+    width: 100%;
+    max-width: 1500px;
+    z-index: 1;
+    animation: modalIn 0.3s ease;
+}
+
+/* ===== 内嵌播放器与放大按钮 ===== */
+.inline-player {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    display: none;
+    z-index: 2;
+    /* 新增：让内部视频完美居中 */
+    align-items: center;
+    justify-content: center;
+}
+
+.video-card.playing .inline-player {
+    display: flex;   /* 播放时覆盖 display: flex */
+}
+
+.video-card.playing .video-thumb,
+.video-card.playing .play-overlay {
+    display: none;
+}
+
+.inline-player video {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    border: none;
+    object-fit: contain;        /* 保留比例，无裁剪 */
+    object-position: center;    /* 显式居中（冗余但安全） */
+}
+
+.inline-player iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.expand-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 3;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.expand-btn:hover {
+    background: var(--secondary-color);
+}
+
+.expand-btn i {
+    font-size: 1.2rem;
+}
+
+.video-card.playing .expand-btn {
+    display: flex;
+}
+
+
+
+@keyframes modalIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modal-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.modal-close:hover {
+    color: var(--secondary-color);
+}
+
+.video-wrapper {
+    background: #000;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.video-wrapper video,
+.video-wrapper iframe {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+    display: block;
+    border: none;
+}
+/* 确保模态框初始隐藏 */
+.video-modal {
+    display: flex;  /* 保留，但覆盖时用 visibility/opacity */
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+.video-modal.active {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* 视频拓展代码结尾 */
+
 /* 响应式设计 */
 @media (max-width: 768px) {
     .nav-links {
@@ -704,9 +975,14 @@ body {
         font-size: 1.8rem;
         margin-right: 10px;
     }
-    /* 针对更小屏幕（手机竖屏）的进一步调整 
+        /* 视频拓展代码 */
+    .video-gallery {
+        grid-template-columns: 1fr;
+    }
+    /* 视频拓展代码结尾 */
 }
     
+ /* 针对更小屏幕（手机竖屏）的进一步调整     
 @media (max-width: 480px) {
     .publication-item {
         padding: 1rem;
