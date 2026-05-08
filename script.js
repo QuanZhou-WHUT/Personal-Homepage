@@ -172,14 +172,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 video.style.width = '100%';
                 video.style.display = 'block';
                 video.style.background = '#000';
-                video.currentTime = currentTime;
-
-                video.addEventListener('error', function() {
+                 video.addEventListener('error', function() {
                     modalWrapper.innerHTML = '<p style="color:white; text-align:center; padding:2rem;">⚠️ 视频加载失败</p>';
                 });
 
+                video.addEventListener('loadedmetadata', function() {
+                    if (currentTime > 0 && Number.isFinite(video.duration)) {
+                        video.currentTime = Math.min(currentTime, video.duration - 0.1);
+                    }
+                
+                    video.play().catch(err => console.warn('模态框自动播放失败', err));
+                }, { once: true });
+                
+                video.addEventListener('error', function() {
+                    console.error('模态框视频加载失败:', videoSrc, video.error);
+                    modalWrapper.innerHTML = '<p style="color:white; text-align:center; padding:2rem;">⚠️ 视频加载失败</p>';
+                });
+                
                 modalWrapper.appendChild(video);
-                video.play().catch(err => console.warn('模态框自动播放失败', err));
+                video.load();
             }
 
             modal.classList.add('active');
