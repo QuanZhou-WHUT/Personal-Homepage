@@ -193,6 +193,57 @@
                     <h3>Large Language Models(LLM) And Applications</h3>
                 </div>
             </div>
+            
+            <!-- 视频展示子模块 -->
+            <h3 class="subsection-title">Project Demos</h3>
+            <div class="video-gallery">
+                <!-- 视频卡片 1：本地视频 -->
+            <div class="video-card" data-video-src="video/demo1.mp4">
+                <!-- 宽高比容器 -->
+                <div class="video-thumb-wrapper">
+                    <img src="" alt="Demo 1" class="video-thumb" data-video-thumb="video/demo1.mp4" onerror="this.style.background='#2c3e50'">
+                    <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    <div class="inline-player"></div>
+                    <button class="expand-btn" type="button" title="弹窗播放视频" aria-label="弹窗播放视频">
+                        <i class="fas fa-up-right-from-square"></i>
+                    </button>
+                </div>
+                <p class="video-caption">人机协同智能快速分割标注平台</p>
+            </div>
+            <div class="video-card" data-video-src="video/demo2.mp4">
+                <!-- 宽高比容器 -->
+                <div class="video-thumb-wrapper">
+                    <img src="" alt="Demo 2" class="video-thumb" data-video-thumb="video/demo2.mp4" onerror="this.style.background='#2c3e50'">
+                    <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    <div class="inline-player"></div>
+                    <button class="expand-btn" type="button" title="弹窗播放视频" aria-label="弹窗播放视频">
+                        <i class="fas fa-up-right-from-square"></i>
+                    </button>
+                </div>
+                <p class="video-caption">肠道息肉实时跟踪与诊断系统</p>
+            </div>
+            <!-- 视频卡片 2：B站视频（embed 类型） -->
+            <!-- <div class="video-card" data-video-src="https://www.bilibili.com/video/BV1xx411c7mD/" data-video-type="embed">
+                <div class="video-thumb-wrapper">
+                    <img src="" alt="Demo 2" referrerpolicy="no-referrer" class="video-thumb" onerror="this.style.background='#2c3e50'">
+                    <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    <div class="inline-player"></div>
+                    <div class="expand-btn" title="放大播放"><i class="fas fa-expand"></i></div>
+                </div>
+                <p class="video-caption">LLM Surgical Assistant Demo</p>
+            </div> -->
+            </div>
+
+            <div id="video-modal" class="video-modal">
+                <div class="modal-backdrop"></div>
+                <div class="modal-content">
+                    <button class="modal-close"><i class="fas fa-times"></i></button>
+                    <div class="video-wrapper" id="modal-video-wrapper">
+                        <p style="color:#fff; text-align:center; padding:2rem;">视频加载中...</p>
+                    </div>
+                </div>
+            </div>
+                
             <!-- 科学研究活动 -->
             <h3 class="subsection-title">Scientific Research Items</h3>
             <ul class="project-grants">
