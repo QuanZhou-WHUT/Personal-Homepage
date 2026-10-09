@@ -391,11 +391,21 @@
                 <span class="text-wrap">Visitor Map</span>
                 </span>
             </h2>
-            <div class="visitor-map-box" style="text-align: center;">
-                <script type="text/javascript"
+            <div class="visitor-map-box" id="visitor-map-box" style="text-align: center;">
+                <!--Visitor Map 不在首屏同步加载。页面加载完成后，由 script.js 在浏览器空闲时自动加载。-->
+                <div id="visitor-map-placeholder"style="min-height: 320px;display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: rgba(255,255,255,0.65);
+                    border-radius: 8px;">
+                            <span style="color: #666;">
+                        Visitor Map preparing...
+                    </span>
+                </div>
+                <!-- <script type="text/javascript"
                     id="mapmyvisitors"
                     src="https://mapmyvisitors.com/map.js?d=rbhO2_EFG79I7BhHeoMm4h1mot_wVo7Eez-iULSfNYI&cl=ffffff&w=a">
-                </script>
+                </script> -->
     
                 <noscript>
                     <a href="https://mapmyvisitors.com/" title="Visit tracker" target="_blank" rel="noopener noreferrer">
