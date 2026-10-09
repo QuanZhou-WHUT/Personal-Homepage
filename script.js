@@ -387,5 +387,173 @@ document.addEventListener('DOMContentLoaded', function() {
                 // 保留图片的 onerror 样式（背景色已在 HTML 中设置）
             });
         }
+        // 9. Visitor Map：页面加载完成后，在浏览器空闲时自动加载
+        (function initVisitorMapIdleLoad() {
+
+            const mapBox =
+                document.getElementById('visitor-map-box');
+
+            const placeholder =
+                document.getElementById('visitor-map-placeholder');
+
+
+            if (!mapBox || !placeholder) {
+                return;
+            }
+
+
+            let loadingStarted = false;
+
+
+            /**
+             * 真正加载 Visitor Map
+             */
+            function loadVisitorMap() {
+
+                // 防止重复加载
+                if (
+                    loadingStarted ||
+                    mapBox.dataset.loaded === 'true'
+                ) {
+                    return;
+                }
+
+
+                loadingStarted = true;
+
+                mapBox.dataset.loaded = 'true';
+
+
+                placeholder.textContent =
+                    'Visitor Map loading...';
+
+
+                /*
+                * 动态创建第三方脚本。
+                *
+                * 因为此时页面已经加载完成，
+                * 所以不会阻塞首屏 HTML 解析。
+                */
+                const script =
+                    document.createElement('script');
+
+
+                script.type =
+                    'text/javascript';
+
+
+                script.id =
+                    'mapmyvisitors';
+
+
+                script.src =
+                    'https://mapmyvisitors.com/map.js?d=rbhO2_EFG79I7BhHeoMm4h1mot_wVo7Eez-iULSfNYI&cl=ffffff&w=a';
+
+
+                /*
+                * 动态脚本继续使用 async，
+                * 避免影响主线程加载流程。
+                */
+                script.async = true;
+
+
+                /*
+                * 如果第三方服务器异常，
+                * 给出简单提示，并允许以后重新触发。
+                */
+                script.addEventListener(
+                    'error',
+
+                    function() {
+
+                        placeholder.textContent =
+                            'Visitor Map failed to load.';
+
+
+                        mapBox.dataset.loaded =
+                            'false';
+
+
+                        loadingStarted =
+                            false;
+
+                    },
+
+                    {
+                        once: true
+                    }
+                );
+
+
+                /*
+                * 把脚本放到原 Visitor Map 区域。
+                *
+                * MapMyVisitors 会在这里生成地图内容。
+                */
+                placeholder.replaceChildren(
+                    script
+                );
+            }
+
+
+
+            /**
+             * 页面完成后安排地图加载
+             */
+            function scheduleVisitorMapLoad() {
+
+                /*
+                * Chrome / Edge 等支持 requestIdleCallback：
+                * 等浏览器空闲后加载。
+                *
+                * timeout = 3000 表示：
+                * 即使一直比较忙，最多延迟约 3 秒也会执行。
+                *
+                * 这样更有利于访客统计。
+                */
+                if ('requestIdleCallback' in window) {
+
+                    window.requestIdleCallback(
+                        loadVisitorMap,
+                        {
+                            timeout: 3000
+                        }
+                    );
+
+                } else {
+
+                    /*
+                    * Safari 等不支持 requestIdleCallback
+                    * 时使用 setTimeout 兼容。
+                    */
+                    window.setTimeout(
+                        loadVisitorMap,
+                        1200
+                    );
+                }
+            }
+
+
+
+            /*
+            * 正常情况：
+            * 等整个网页 load 完成后再启动空闲调度。
+            */
+            if (document.readyState === 'complete') {
+
+                scheduleVisitorMapLoad();
+
+            } else {
+
+                window.addEventListener(
+                    'load',
+                    scheduleVisitorMapLoad,
+                    {
+                        once: true
+                    }
+                );
+            }
+
+        })();
     })();
 });
