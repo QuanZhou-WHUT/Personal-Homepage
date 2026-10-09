@@ -68,11 +68,21 @@ document.addEventListener('DOMContentLoaded', function() {
             this.classList.add('active');
             
             const selectedYear = this.getAttribute('data-year');
+            const maxYear = this.dataset.yearMax;
             
             // 显示/隐藏出版物
             publicationItems.forEach(item => {
-                if (selectedYear === 'all' || item.getAttribute('data-year') === selectedYear) {
+                const itemYear = Number(item.dataset.year);
+
+                // 判断当前文献是否应该显示
+                const shouldShow =
+                    selectedYear === 'all' ||
+                    (maxYear && itemYear <= Number(maxYear)) ||
+                    (!maxYear && item.dataset.year === selectedYear);
+
+                if (shouldShow) {
                     item.style.display = 'flex';
+
                     setTimeout(() => {
                         item.style.opacity = '1';
                         item.style.transform = 'translateY(0)';
@@ -80,6 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     item.style.opacity = '0';
                     item.style.transform = 'translateY(20px)';
+
                     setTimeout(() => {
                         item.style.display = 'none';
                     }, 300);
